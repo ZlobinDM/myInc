@@ -3,9 +3,13 @@
     <mat-label>Filter</mat-label>
     <input formControlName="filter" matInput>
   </mat-form-field>
-  <button *ngIf="nextPageToken" mat-raised-button class="get-more-button" color="primary" (click)="loadVideos()">
-    load more ({{filteredList.length}})
-  </button>
 </form>
+<div *ngIf="nextPageToken" class="action-text-container">
+  <span class="action-text" (click)="loadVideos()">...click here for show more... ({{filteredList.length}}) </span>
+</div>
 
 <app-video-list [videos]="filteredList"></app-video-list>
+
+<div *ngIf="nextPageToken" class="action-text-container">
+  <span class="action-text" (click)="loadVideos()">...click here for show more... ({{filteredList.length}}) </span>
+</div>
