@@ -1,5 +1,6 @@
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { YoutubeResponse } from '../models/youtube,interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,19 @@ export class YoutubeDataService {
 
   constructor(private http: HttpClient) { }
 
-  getVideos() {
+  getVideos(pageToken: string = '') {
 
     const params = new HttpParams({
       fromObject: {
         part: 'snippet',
         chart: 'mostPopular',
         regionCode: 'RU',
+        maxResults: '50',
+        pageToken,
         key: this.appKey
       }
     });
 
-    return this.http.get<any>(this.apiURL, { params });
+    return this.http.get<YoutubeResponse>(this.apiURL, { params });
   }
 }
