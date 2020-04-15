@@ -41,13 +41,13 @@ export class FavoriteService {
   }
 
   saveToStorage() {
+
     try {
       localStorage.setItem(this.storageName, JSON.stringify([...this.favoriteMap]));
       return true;
     } catch (e) {
       return false;
     }
-
   }
 
   getVideosFromMap(): Array<Video> {
@@ -58,7 +58,7 @@ export class FavoriteService {
         value: {
           title: val.title,
           img: val.img,
-          favorite: val.favorite
+          favorite: true
         }
       } as Video));
 

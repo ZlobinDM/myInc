@@ -44,7 +44,7 @@ export class VideoSearchComponent implements OnInit, OnDestroy {
 
     this.form.controls.filter.valueChanges
       .pipe(
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
         tap(str => this.setFilter(str)),
         takeUntil(this.destroy$)
@@ -71,7 +71,6 @@ export class VideoSearchComponent implements OnInit, OnDestroy {
   }
 
   loadVideos() {
-    console.log('pg tok', this.nextPageToken )
     this.youtube.getVideos(this.nextPageToken)
       .pipe(
         take(1),
