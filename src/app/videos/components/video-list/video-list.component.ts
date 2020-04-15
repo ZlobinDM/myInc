@@ -18,8 +18,11 @@ export class VideoListComponent implements OnInit {
   }
 
   addFavorite(video: Video) {
-    video.value.favorite = !video.value.favorite;
     this.fs.add(video);
+  }
+
+  removeFavorite(video: Video) {
+    this.fs.remove(video);
   }
 
 }

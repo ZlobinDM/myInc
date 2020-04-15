@@ -5,7 +5,12 @@
     </mat-card-header>
     <img mat-card-image src="{{video.value.img}}" alt="preview">
     <mat-card-actions>
-      <button mat-button (click)="addFavorite(video)"> LIKE </button>
+      <ng-container *ngIf="video.value.favorite">
+        <button mat-button (click)="removeFavorite(video)" color="warn"> REMOVE FROM FAVORITE </button>
+      </ng-container>
+      <ng-container *ngIf="!video.value.favorite">
+        <button mat-button (click)="addFavorite(video)"> ADD TO FAVORITE </button>
+      </ng-container>
     </mat-card-actions>
   </mat-card>
 </div>

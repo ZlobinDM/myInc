@@ -34,14 +34,13 @@ export class VideoSearchComponent implements OnInit, OnDestroy {
       .pipe(
         filter(event => event instanceof NavigationEnd),
         tap(a => console.log('router', a)),
-        tap((route: NavigationEnd) => this.initialize(route.url)),
-        // tap(() => this.getVideos()),
+        tap((route: NavigationEnd) => this.initData(route.url)),
         takeUntil(this.destroy$)
       )
       .subscribe();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.form.controls.filter.valueChanges
       .pipe(
@@ -51,52 +50,49 @@ export class VideoSearchComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe();
-
   }
 
-  initialize(url: string) {
+  initData(url: string) {
 
     url = url.replace('/videos/', '');
+    this.nextPageToken = '';
+    this.videoList = [];
 
     switch (url) {
       case 'favorite':
-        this.filteredList = this.fs.getVideosFromMap();
-        // const arr: Array<Video> = [];
-        console.log(this.fs.favoriteMap); // .forEach((val<{}>, key) => arr.push( {id: key, value: val } )  ;
-
+        this.videoList = this.fs.getVideosFromMap();
+        this.setFilter(this.form.controls.filter.value);
         break;
       default:
-        this.getVideos();
+        this.loadVideos();
         break;
     }
 
   }
 
-  getVideos() {
+  loadVideos() {
+    console.log('pg tok', this.nextPageToken )
     this.youtube.getVideos(this.nextPageToken)
       .pipe(
         take(1),
-        // tap(a => console.log('resp', a)),
-        // tap(a => console.log('nextPageToken', this.nextPageToken)),
         tap(resp => this.nextPageToken = resp.nextPageToken),
         pluck('items'),
-        // tap(a => console.log('getVids', a)),
-        map(list => list.map((item, index) => {
+        map(list => list.map(item => {
           const img = item.snippet.thumbnails.standard || item.snippet.thumbnails.default;
-          const t = {
+          const isFav = this.fs.favoriteMap.has(item.id);
+
+          const vid: Video = {
             id: item.id,
             value: {
               title: this.getTitle(item.snippet.title),
               img: img.url,
-              favorite: false
+              favorite: isFav
             }
           };
-          // console.log(index);
-          return t as Video;
+          return vid;
         })),
         tap(items => this.videoList = [...this.videoList, ...items]),
-        // tap(a => console.log('videoList after', this.videoList)),
-        tap(() => this.filteredList = [...this.videoList]),
+        tap(() => this.setFilter(this.form.controls.filter.value)),
         takeUntil(this.destroy$)
       )
       .subscribe();

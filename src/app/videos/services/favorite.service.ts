@@ -33,6 +33,13 @@ export class FavoriteService {
     this.saveToStorage();
   }
 
+  remove(item: Video) {
+    if (this.favoriteMap.has(item.id)) {
+      this.favoriteMap.delete(item.id);
+      this.saveToStorage();
+    }
+  }
+
   saveToStorage() {
     try {
       localStorage.setItem(this.storageName, JSON.stringify([...this.favoriteMap]));
@@ -45,7 +52,7 @@ export class FavoriteService {
 
   getVideosFromMap(): Array<Video> {
     const arr: Array<Video> = [];
-    this.favoriteMap.forEach((val: any, key) =>
+    this.favoriteMap.forEach((val, key) =>
       arr.push({
         id: key,
         value: {
