@@ -1,6 +1,11 @@
-<form class="filter-form">
+<form [formGroup]="form" class="filter-form">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput value="">
+    <input formControlName="filter" matInput>
   </mat-form-field>
+  <button *ngIf="nextPageToken" mat-raised-button class="get-more-button" color="primary" (click)="getVideos()">
+    load more ({{filteredList.length}})
+  </button>
 </form>
+
+<app-video-list [videos]="filteredList"></app-video-list>

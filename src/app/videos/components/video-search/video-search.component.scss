@@ -1,8 +1,16 @@
-:host {
+.filter-form {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .mat-form-field {
-  min-width: 300px;
+  font-size: 22px;
+  min-width: 50%;
+  min-height: 30px;
+}
+
+.get-more-button {
+  height: 40px;
+  margin: 20px;
 }

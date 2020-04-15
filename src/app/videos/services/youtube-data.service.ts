@@ -19,7 +19,7 @@ export class YoutubeDataService {
         part: 'snippet',
         chart: 'mostPopular',
         regionCode: 'RU',
-        maxResults: '50',
+        maxResults: '3',
         pageToken,
         key: this.appKey
       }

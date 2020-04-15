@@ -6,10 +6,12 @@ import { VideoSearchComponent } from './components/video-search/video-search.com
 import { VideoListComponent } from './components/video-list/video-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { YoutubeDataService } from './services/youtube-data.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FavoriteService } from './services/favorite.service';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'all' },
+  { path: '', redirectTo: 'all', pathMatch: 'full' },
   { path: ':page', component: VideoSearchComponent },
   { path: '**', redirectTo: 'all', pathMatch: 'full' }
 ];
@@ -22,11 +24,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild(routes)
   ],
   providers: [
-    YoutubeDataService
+    YoutubeDataService,
+    FavoriteService
   ]
 })
 export class VideosModule { }
