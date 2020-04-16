@@ -2,6 +2,10 @@ mat-sidenav {
   width: 300px;
 }
 
+.mat-sidenav-content {
+  overflow: hidden;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
