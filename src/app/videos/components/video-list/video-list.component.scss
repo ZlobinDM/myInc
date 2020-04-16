@@ -7,6 +7,7 @@
 
 .video-card {
   padding: 5px;
+  max-width: 400px;
 }
 
 .mat-card-title {
@@ -17,11 +18,3 @@
   -webkit-box-orient: vertical;
 }
 
-.video-card {
-  max-width: 400px;
-}
-
-.video-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}

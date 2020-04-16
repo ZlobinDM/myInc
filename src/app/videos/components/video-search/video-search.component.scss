@@ -19,15 +19,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.mat-form-field {
-  font-size: 22px;
-  min-width: 50%;
-  min-height: 30px;
-}
-
-.get-more-button {
-  height: 40px;
-  margin: 20px;
+  .mat-form-field {
+    font-size: 22px;
+    min-width: 50%;
+    padding-top: 40px;
+  }
 }
